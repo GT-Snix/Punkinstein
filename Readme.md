@@ -153,5 +153,5 @@ This project is open for educational and personal use. Feel free to adapt it for
 
 ---
 
-**Created with ❤️ by Raka**
+**Created with ❤️ by Parth**
 *Where urban art meets digital design.*
