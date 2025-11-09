@@ -1,19 +1,11 @@
-/* ===== GLOBAL RESET ===== */
+/* ====== RESET ====== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html, body {
-  height: 100%;
-  font-family: 'Poppins', sans-serif;
-  background: #0c0b10;
-  color: white;
-  overflow: hidden;
-}
-
-/* ===== COLOR THEME ===== */
+/* ====== BASE STYLES ====== */
 :root {
   --purple: #2e1571;
   --green: #a5fd45;
@@ -23,25 +15,33 @@ html, body {
   --white: #f5f5f5;
 }
 
-/* ===== NAVBAR (Flex) ===== */
+html, body {
+  height: 100%;
+  font-family: 'Poppins', sans-serif;
+  background: var(--black);
+  color: var(--white);
+  overflow: hidden;
+}
+
+/* ====== NAVBAR ====== */
 .navbar {
   position: fixed;
   top: 0;
   width: 100%;
-  background: rgba(12, 11, 16, 0.9);
+  z-index: 1000;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 15px 40px;
+  background: rgba(12, 11, 16, 0.9);
   border-bottom: 2px solid var(--pink);
-  z-index: 1000;
   box-shadow: 0 4px 15px rgba(255, 0, 128, 0.25);
 }
 
 .logo {
   font-size: 1.8rem;
-  color: var(--green);
   font-weight: 700;
+  color: var(--green);
 }
 
 .logo span {
@@ -65,54 +65,59 @@ html, body {
   text-shadow: 0 0 10px var(--yellow);
 }
 
-/* ===== MAIN SCROLL CONTAINER ===== */
+/* ====== MAIN SCROLL CONTAINER ====== */
 .scroll-container {
   display: flex;
-  overflow-x: auto;
   width: 100vw;
   height: 100vh;
+  overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
-  padding-top: 70px;
+  padding-top: 70px; /* accounts for navbar */
 }
 
+/* Each full-page section */
 .section {
   flex: 0 0 100vw;
   height: calc(100vh - 70px);
   scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   padding: 40px;
   background-size: cover;
   background-position: center;
   position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
-/* ===== BACKGROUNDS ===== */
+/* ====== BACKGROUND IMAGES ====== */
 .home {
-  background-image: linear-gradient(rgba(20, 0, 40, 0.6), rgba(20, 0, 40, 0.6)),
+  background-image: 
+    linear-gradient(rgba(20, 0, 40, 0.6), rgba(20, 0, 40, 0.6)),
     url('Wild_style_graffiti_lettering_06943d8c.png');
 }
 
 .gallery {
-  background-image: linear-gradient(rgba(0, 40, 20, 0.6), rgba(0, 40, 20, 0.6)),
+  background-image:
+    linear-gradient(rgba(0, 40, 20, 0.6), rgba(0, 40, 20, 0.6)),
     url('Inspirational_typography_mural_8acf2c7b.png');
 }
 
 .artists {
-  background-image: linear-gradient(rgba(40, 0, 0, 0.6), rgba(233, 69, 69, 0.6)),
+  background-image:
+    linear-gradient(rgba(60, 0, 0, 0.7), rgba(60, 0, 0, 0.7)),
     url('Stencil_art_with_message_22eec071.png');
 }
 
 .contact {
-  background-image: linear-gradient(rgba(10, 0, 20, 0.7), rgba(10, 0, 20, 0.7)),
+  background-image:
+    linear-gradient(rgba(10, 0, 20, 0.7), rgba(10, 0, 20, 0.7)),
     url('Inspirational_typography_mural_8acf2c7b.png');
 }
 
-/* ===== TYPOGRAPHY ===== */
+/* ====== TEXT STYLES ====== */
 h1, h2 {
   text-shadow: 0 0 15px var(--pink);
 }
@@ -127,12 +132,12 @@ p {
   color: var(--white);
 }
 
-/* ===== GALLERY SCROLLER ===== */
+/* ====== GALLERY (Horizontal Scroll) ====== */
 .gallery-scroll {
   display: grid;
   grid-auto-flow: column;
-  grid-gap: 20px;
-  overflow-x: scroll;
+  gap: 20px;
+  overflow-x: auto;
   padding: 20px;
   scrollbar-color: var(--green) var(--black);
   scrollbar-width: thin;
@@ -153,6 +158,12 @@ p {
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 0 20px rgba(255, 0, 100, 0.3);
+  transition: transform 0.4s ease;
+}
+
+.gallery-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px var(--pink);
 }
 
 .gallery-item img {
@@ -166,34 +177,92 @@ p {
   transform: scale(1.1);
 }
 
-/* ===== ARTISTS GRID ===== */
+/* ====== ARTISTS GRID ====== */
 .artist-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 25px;
-  max-width: 900px;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
+/* Artist Card */
 .artist-card {
-  background: rgba(20, 20, 20, 0.8);
+  background: rgba(15, 15, 20, 0.85);
+  border-radius: 16px;
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 15px rgba(255, 0, 100, 0.3);
-  transition: transform 0.3s, box-shadow 0.3s;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 20px rgba(255, 30, 117, 0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .artist-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 25px var(--yellow);
+  transform: translateY(-6px);
+  box-shadow: 0 0 25px var(--pink);
 }
 
-.artist-card h3 {
+/* Artist Header */
+.artist-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.artist-photo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid var(--green);
+  object-fit: cover;
+  box-shadow: 0 0 10px var(--pink);
+}
+
+.artist-header h3 {
   color: var(--green);
+  font-size: 1.3rem;
+  margin-bottom: 4px;
   text-shadow: 0 0 10px var(--pink);
-  margin-bottom: 10px;
 }
 
-/* ===== CONTACT FORM ===== */
+.artist-header p {
+  font-size: 0.95rem;
+  color: #ddd;
+}
+
+/* Art Preview */
+.art-preview {
+  margin-top: 15px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.art-preview img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.4s ease, filter 0.3s ease;
+}
+
+.art-preview:hover img {
+  transform: scale(1.08);
+  filter: brightness(1.2);
+}
+
+.art-preview span {
+  display: block;
+  background: rgba(46, 21, 113, 0.9);
+  color: var(--green);
+  font-weight: 600;
+  padding: 6px 0;
+  font-size: 0.9rem;
+  text-align: center;
+  text-shadow: 0 0 10px var(--pink);
+}
+
+/* ====== CONTACT FORM ====== */
 form {
   display: flex;
   flex-direction: column;
@@ -224,15 +293,15 @@ button:hover {
   background-color: var(--yellow);
 }
 
-/* ===== FOOTER ===== */
+/* ====== FOOTER ====== */
 footer {
-  background: #111;
-  color: var(--white);
-  text-align: center;
-  padding: 15px;
   position: fixed;
   bottom: 0;
   width: 100%;
+  padding: 15px;
+  background: #111;
+  color: var(--white);
+  text-align: center;
   border-top: 2px solid var(--pink);
   box-shadow: 0 -4px 15px rgba(255, 0, 128, 0.3);
 }
@@ -245,16 +314,18 @@ footer {
   color: var(--green);
   text-decoration: none;
   margin: 0 10px;
+  transition: text-shadow 0.3s;
 }
 
 .footer-links a:hover {
   text-shadow: 0 0 10px var(--yellow);
 }
 
-/* ===== RESPONSIVE ===== */
+/* ====== RESPONSIVE DESIGN ====== */
 @media (max-width: 768px) {
-  .artist-grid {
-    grid-template-columns: 1fr;
+  .navbar {
+    flex-direction: column;
+    padding: 10px;
   }
 
   .scroll-container {
@@ -262,8 +333,7 @@ footer {
     overflow-y: auto;
   }
 
-  .navbar {
-    flex-direction: column;
-    padding: 10px;
+  .artist-grid {
+    grid-template-columns: 1fr;
   }
 }
